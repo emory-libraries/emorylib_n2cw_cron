@@ -1,17 +1,49 @@
-Role Name
+emorylib_n2cw_cron
 =========
 
-A brief description of the role goes here.
+This role will install nagios and its plugins, and pip install n2cw, which allows nagios plugins to report to cloudwatch. The role will be as flexible as possible while simplifying the cron module of ansible.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Role is intended for Red Hat 7 Enterprise Linux, but should work on other versions of linux.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yaml
+n2cw_cron_envs:                                         # Optional list of cron environment variables to manage.
+  - name: APP_HOME                                      # Required, and must be unique
+    value: /opt/whatever                                # Required, is the value or 'job' of the environment variable
+    state: present                                      # Optional, defaults to present
+    disabled:                                           # Optional, cron.disabled
+    insertafter:                                        # Optional, cron.insertafter value
+    insertbefore:                                       # Optional, cron.insertbefore value
+## Options that act as defaults for the n2cw_cron_jobs variable, that CANNOT be overridden by indiviual items inside the list.
+n2cw_cron_user:                                         # Optional, sets the cron.user value  
+n2cw_cron_file:                                         # Optional, sets the cron.file value  
+n2cw_cron_backup: no                                    # Optional, sets the cron.backup value, defaults to no
+## Options that act as defaults for the n2cw_cron_jobs, that CAN be overridden by indiviual items inside the list.
+  ## Cron Options
+n2cw_cron_day:
+n2cw_cron_hour:
+n2cw_cron_minute:
+n2cw_cron_second:
+  ## n2cw Options
+n2cw_namespace:                                         # Required, sets the namespace for cloudwatch
+n2cw_plugin_path:                                       # Required, sets the path for nagios plugins
+n2cw_base_job:
+## Main Input Variable
+n2cw_cron_jobs:
+  - name:                                               # Required, and must be unique. Must be the plugin name if plugin is not specified!
+    disabled:                                           # Optional, cron.disabled
+    plugin:                                             # Optional, the plugin name, higher presidence than n2cw_cron_jobs.name
+    state: present                                      # Optional, cron.state, defaults to present
+    options:                                            # Optional, list of plugin options, joined by ' -', do not put dash inside value
+    namespace:                                          # Optional, higher presidence than n2cw_namespace
+    plugin_path:                                        # Optional, higher presidence than n2cw_plugin_path
+    base_job:                                           # Optional, higher presidence than n2cw_base_job
+```
 
 Dependencies
 ------------
