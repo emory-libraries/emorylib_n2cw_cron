@@ -32,7 +32,7 @@ n2cw_cron_second:
   ## n2cw Options
 n2cw_namespace:                                         # Required, sets the namespace for cloudwatch
 n2cw_plugin_path:                                       # Required, sets the path for nagios plugins
-n2cw_base_job:
+n2cw_job:
 ## Main Input Variable
 n2cw_cron_jobs:
   - name:                                               # Required, and must be unique. Must be the plugin name if plugin is not specified!
@@ -42,7 +42,7 @@ n2cw_cron_jobs:
     options:                                            # Optional, list of plugin options, joined by ' -', do not put dash inside value
     namespace:                                          # Optional, higher presidence than n2cw_namespace
     plugin_path:                                        # Optional, higher presidence than n2cw_plugin_path
-    base_job:                                           # Optional, higher presidence than n2cw_base_job
+    job:                                                # Optional, higher presidence than n2cw_job
 ```
 
 Dependencies
