@@ -8,4 +8,4 @@ n2cw_job: >
   -- {{ n2cw_plugin_path }}/{{ item.plugin | d ( item.name) }} {{ n2cw_options_ternary }}
 
 n2cw_options_ternary: '{{ item.options is defined | ternary (n2cw_write_options, "") }}'
-n2cw_write_options: '- {{ item.options | d () | join("") }}'
+n2cw_write_options: '- {{ item.options | d () | join(" - ") }}'
