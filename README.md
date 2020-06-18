@@ -25,6 +25,7 @@ n2cw_cron_backup: no                                    # Optional, sets the cro
 ## Options that act as defaults for the n2cw_cron_jobs, that CAN be overridden by indiviual items inside the list.
   ## Cron Options
 n2cw_cron_day:
+n2cw_cron_weekday:
 n2cw_cron_hour:
 n2cw_cron_minute:
 n2cw_cron_second:
