@@ -2,7 +2,6 @@
 - name: Manage cron environment variables
   cron:
     name: '{{ item.name }}'
-    disabled: '{{ item.disabled | d (omit) }}'
     env: yes
     insertbefore: '{{ item.insertbefore | d (omit) }}'
     insertafter: '{{ item.insertbefore | d (omit) }}'
